@@ -33,6 +33,7 @@ const propTypes = {
     onVerify: PropTypes.func.isRequired,
     textColor: PropTypes.string,
     borderColor: PropTypes.string,
+    icon: PropTypes.any
 };
 
 //default props value
@@ -41,6 +42,7 @@ const defaultProps = {
     puzzleColor: '#D50000',
     textColor: '#fff',
     borderColor: '#D50000',
+    icon: require('./img/right.png')
 };
 
 
@@ -55,14 +57,10 @@ export default class RNSwipeVerify extends Component {
             verify: false,
             percent: 0,
             position: { x: 0, y: 0 },
-            dimensions: { width: 0, height: 0 }, 
+            dimensions: { width: 0, height: 0 },
 
         }
 
-
-
-
-        lastDx = 0
 
         this._panResponder = PanResponder.create({
             // Ask to be the responder:
@@ -167,7 +165,7 @@ export default class RNSwipeVerify extends Component {
 
     render() {
 
-        const { puzzleColor, puzzleSize, width, text, textColor, borderColor, backgroundColor } = this.props
+        const { puzzleColor, puzzleSize, width, text, textColor, borderColor, backgroundColor, icon } = this.props
         const { verify, moving } = this.state
         const radius = puzzleSize / 2;
         const iconSize = puzzleSize / 1.9;
@@ -198,7 +196,7 @@ export default class RNSwipeVerify extends Component {
                         position,
                         { width: puzzleSize, height: puzzleSize, borderRadius: radius, backgroundColor: puzzleColor, justifyContent: 'center', alignItems: 'center' }
                     ]}>
-                        <Image source={require('./img/right.png')} style={{ width: iconSize, height: iconSize }} />
+                        <Image source={icon} style={{ width: iconSize, height: iconSize }} />
 
                     </Animated.View>)}
                 </View>

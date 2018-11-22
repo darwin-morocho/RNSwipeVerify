@@ -1,35 +1,37 @@
 {
   "name": "react-native-swipe-verify",
-  "version": "0.0.1",
+  "version": "0.0.8",
   "license": "MIT",
   "author": {
     "name": "Darwin Morocho",
     "email": "dsmr.apps@gmail.com",
     "url": "https://dina.ec"
   },
+  "keywords": [
+    "react-native-swipe-verify",
+    "react-native-confirm",
+    "react-native-verify",
+    "react-native-slide-confirm",
+    "react-native-slide-verify"
+  ],
+  "homepage": "https://github.com/MorochoRochaDarwin/RNSwipeVerify",
   "private": false,
   "main": "RNSwipeVerify.js",
   "scripts": {
     "start": "node node_modules/react-native/local-cli/cli.js start",
-    "test": "jest",
     "ra": "react-native run-android",
     "ri": "react-native run-ios",
     "ba": "node node_modules/react-native/local-cli/cli.js bundle --platform android --dev false --entry-file index.js --bundle-output android/app/src/main/assets/index.android.bundle --assets-dest android/app/src/main/res"
   },
   "dependencies": {
-    "react": "16.6.1",
-    "react-native": "0.57.5"
+    "prop-types": "^15.6.2"
   },
   "devDependencies": {
     "babel-jest": "23.6.0",
-    "chai": "^4.2.0",
-    "jest": "23.6.0",
     "metro-react-native-babel-preset": "0.49.2",
-    "mocha": "^5.2.0",
-    "react-test-renderer": "16.6.1"
-  },
-  "jest": {
-    "preset": "react-native"
+    "react-test-renderer": "16.6.1",
+    "react": "16.6.1",
+    "react-native": "0.57.5"
   },
   "engines": {
     "node": ">=8.12.0"
