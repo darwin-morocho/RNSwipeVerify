@@ -84,9 +84,16 @@ export default class App extends Component {
 
 
 
-## Methods
+## Callbacks
 
 | name | arguments | notes |
 | --- | --- | --- |
 | **onVerify** (required) | bool | listener to check if the swipe is verified (user has completed swipe) |
 
+
+
+## Methods
+
+| name | arguments | notes |
+| --- | --- | --- |
+| **reset(bool)** (required) | bool (animate) | reset the swipe-verify to default values |
