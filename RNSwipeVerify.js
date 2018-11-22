@@ -11,7 +11,6 @@ import PropTypes from 'prop-types'
 import {
     Text, View, PanResponder,
     Animated, UIManager,
-    TouchableOpacity,
     Easing, Image
 } from 'react-native';
 
@@ -116,7 +115,7 @@ export default class RNSwipeVerify extends Component {
 
                 Animated.timing(offsetXAnim, {
                     toValue: toX,
-                    duration: 50,
+                    duration: 10,
                     easing: Easing.linear
                 }).start();
 

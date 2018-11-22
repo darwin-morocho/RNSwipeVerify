@@ -1,4 +1,4 @@
-package com.swipeverify;
+package com.rnswipeverify;
 
 import com.facebook.react.ReactActivity;
 

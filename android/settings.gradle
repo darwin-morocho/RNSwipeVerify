@@ -1,3 +1,3 @@
-rootProject.name = 'swipeVerify'
+rootProject.name = 'RNSwipeVerify'
 
 include ':app'
