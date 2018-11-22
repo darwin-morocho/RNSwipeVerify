@@ -59,7 +59,7 @@ export default class App extends Component {
           puzzleSize={60} 
           width={width - 40} 
           onVerify={verify => this.setState({ verify })}
-          text={verify ? "VERIFIED" : "Deslice para verificar"} 
+          text={verify ? "VERIFIED" : "Slide to verify"} 
           puzzleColor="#01579B" 
           borderColor={verify ? '#1DE9B6' : '#01579B'}
           textColor={verify ? '#1DE9B6' : '#01579B'} 
@@ -67,7 +67,7 @@ export default class App extends Component {
           icon={require('../img/swipe.png')}      
         />
 
-        
+
         {this.state.verify && (<TouchableOpacity onPress={() => this.swipeVerify.reset(false)} style={{ marginTop: 30 }}>
           <Text style={{ padding: 10, color: '#0091EA', fontSize: 25 }}>RESET</Text>
         </TouchableOpacity>)}
