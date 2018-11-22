@@ -46,7 +46,6 @@ export default class App extends Component {
           width={width - 50}
           puzzleSize={60}
           text="Deslice para verificar"
-          icon={{ uri: 'http://chittagongit.com//images/swipe-icon/swipe-icon-12.jpg' }}
           onVerify={verify => {
             this.setState({ verify })
           }} />

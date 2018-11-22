@@ -58,7 +58,6 @@ export default class RNSwipeVerify extends Component {
             percent: 0,
             position: { x: 0, y: 0 },
             dimensions: { width: 0, height: 0 },
-
         }
 
 
@@ -106,6 +105,8 @@ export default class RNSwipeVerify extends Component {
                 if (toX > maxMoving) toX = maxMoving;
                 const percent = ((toX * 100) / maxMoving).toFixed();
                 this.setState({ percent })
+                
+                //
                 if (!this.props.text) {
                     const text = `${percent} %`;
                     this.setState({ text })
@@ -114,7 +115,8 @@ export default class RNSwipeVerify extends Component {
                 Animated.timing(offsetXAnim, {
                     toValue: toX,
                     duration: 10,
-                    easing: Easing.linear
+                    easing: Easing.linear,
+                    useNativeDriver:true
                 }).start();
 
 
@@ -126,14 +128,12 @@ export default class RNSwipeVerify extends Component {
                 // responder. This typically means a gesture has succeeded
 
                 //console.log("onPanResponderRelease", gestureState);
-                if (this.state.percent > 98) {
-
+                if (this.state.percent >= 100) {
                     this.setState({ moving: false, verify: true });
                     this.props.onVerify(true);//communicate that the verification was successful
                 } else {
                     this.reset(true);
                 }
-
 
             },
             onPanResponderTerminate: (evt, gestureState) => {
@@ -154,7 +154,8 @@ export default class RNSwipeVerify extends Component {
         Animated.timing(this.state.offsetXAnim, {
             toValue: 0,
             duration: animate ? 500 : 0,
-            easing: Easing.linear
+            easing: Easing.linear,
+            useNativeDriver: true
         }).start();
         this.setState({ moving: false, verify: false, percent: 0 });
         this.props.onVerify(false);//communicate that the verification was unsuccessful
@@ -166,7 +167,7 @@ export default class RNSwipeVerify extends Component {
     render() {
 
         const { puzzleColor, puzzleSize, width, text, textColor, borderColor, backgroundColor, icon } = this.props
-        const { verify, moving } = this.state
+        const { verify, moving, percent } = this.state
         const radius = puzzleSize / 2;
         const iconSize = puzzleSize / 1.9;
 
@@ -178,7 +179,7 @@ export default class RNSwipeVerify extends Component {
             ]
         };
         return (
-            <View style={{ borderColor: borderColor, borderWidth: 2, borderRadius: radius + 4, padding: 2 }}>
+            <View style={{ borderColor: borderColor, borderWidth: 2, borderRadius: radius + 4, padding: 2, width: width + 8 }}>
                 <View onLayout={(event) => {
                     var { x, y, width, height } = event.nativeEvent.layout;
                     this.setState({ dimensions: { width, height }, position: { x, y } })
@@ -191,7 +192,7 @@ export default class RNSwipeVerify extends Component {
                         color: textColor,
                         fontWeight: 'bold',
                         fontSize: 17, paddingLeft: !verify ? radius : 0
-                    }}>{text}</Text>
+                    }}>{percent}</Text>
                     {!verify && (<Animated.View {...this._panResponder.panHandlers} style={[
                         position,
                         { width: puzzleSize, height: puzzleSize, borderRadius: radius, backgroundColor: puzzleColor, justifyContent: 'center', alignItems: 'center' }
