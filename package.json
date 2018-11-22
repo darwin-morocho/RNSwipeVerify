@@ -1,8 +1,14 @@
 {
-  "name": "SwipeVerify",
+  "name": "react-native-swipe-verify",
   "version": "0.0.1",
+  "license": "MIT",
+  "author": {
+    "name": "Darwin Morocho",
+    "email": "dsmr.apps@gmail.com",
+    "url": "https://dina.ec"
+  },
   "private": false,
-  "main": "RNSwipeVeridy.js",
+  "main": "RNSwipeVerify.js",
   "scripts": {
     "start": "node node_modules/react-native/local-cli/cli.js start",
     "test": "jest",
