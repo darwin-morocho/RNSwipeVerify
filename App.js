@@ -48,7 +48,7 @@ export default class App extends Component {
 
         <RNSwipeVerify ref={ref => this.swipeVerify = ref} puzzleSize={60} width={width - 40} onVerify={verify => this.setState({ verify })}
           text={verify ? "VERIFICADO" : "Deslice para verificar"} puzzleColor="#01579B" borderColor={verify ? '#1DE9B6' : '#01579B'}
-          textColor={verify ? '#1DE9B6' : '#01579B'} backgroundColor="#fff" 
+          textColor={verify ? '#1DE9B6' : '#01579B'} backgroundColor="#fff"
         />
 
         {this.state.verify && (<TouchableOpacity onPress={() => this.swipeVerify.reset(false)} style={{ marginTop: 30 }}>
