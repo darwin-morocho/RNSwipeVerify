@@ -9,8 +9,12 @@ A small componenent to Swipe Verify
 
 ## Preview
 
-<img width="259" alt="lo" src="https://user-images.githubusercontent.com/15864336/48920913-d823c600-ee69-11e8-99d0-ff0fa2bb4c82.png">
-<img width="259" alt="lo" src="https://user-images.githubusercontent.com/15864336/48921011-93e4f580-ee6a-11e8-91ff-3ffc38243719.png">
+
+|  |  |
+| --- | --- |
+| <img width="259" alt="lo" src="https://user-images.githubusercontent.com/15864336/48920913-d823c600-ee69-11e8-99d0-ff0fa2bb4c82.png"> | <img width="259" alt="lo" src="https://user-images.githubusercontent.com/15864336/48921011-93e4f580-ee6a-11e8-91ff-3ffc38243719.png"> |
+
+
 
 
 
@@ -79,7 +83,8 @@ export default class App extends Component {
 
 
 
-##methods
+## Methods
+
 | name | arguments | notes |
 | --- | --- | --- |
 | **onVerify** (required) | bool | listener to check if the swipe was verify |
