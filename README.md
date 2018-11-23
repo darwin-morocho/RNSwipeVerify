@@ -56,11 +56,11 @@ export default class App extends Component {
 
         <RNSwipeVerify 
           ref={ref => this.swipeVerify = ref} 
-          puzzleSize={60} 
+          buttonSize={60} 
           width={width - 40} 
           onVerify={verify => this.setState({ verify })}
           text={verify ? "VERIFIED" : "Slide to verify"} 
-          puzzleColor="#01579B" 
+          buttonColor="#01579B" 
           borderColor={verify ? '#1DE9B6' : '#01579B'}
           textColor={verify ? '#1DE9B6' : '#01579B'} 
           backgroundColor="#fff"
@@ -83,10 +83,10 @@ export default class App extends Component {
 | name | type | default | description |
 | --- | --- | --- | --- |
 | **width** (required) | number | required | the width of swipe-verify |
-| **puzzleSize** (required) | number | required | the puzzle (Icon) size of swipe-verify |
+| **buttonSize** (required) | number | required | the button (Icon) size of swipe-verify |
 | **backgroundColor** (optional) | string | #F50057 | background color |
-| **puzzleColor** (optional) | string | #D50000 | puzzle background color |
-| **icon** (optional) | image | arrow icon | image to puzzle (only .png or .jpg).<br> You can use  **icon={require('../img/swipe.png')}**    or  **icon={{ uri: 'http://images.com/swipe-icon.jpg'}}** |
+| **buttonColor** (optional) | string | #D50000 | button background color |
+| **icon** (optional) | image | arrow icon | image to button (only .png or .jpg).<br> You can use  **icon={require('../img/swipe.png')}**    or  **icon={{ uri: 'http://images.com/swipe-icon.jpg'}}** |
 | **text** (optional) | string | #D50000 | text to show |
 | **textColor** (optional) | string | #FFFFFF | text color |
 | **borderColor** (optional) | string | #D50000 | border color |

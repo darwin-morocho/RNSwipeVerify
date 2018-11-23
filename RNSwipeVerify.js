@@ -26,9 +26,9 @@ if (UIManager.setLayoutAnimationEnabledExperimental) {
 
 const propTypes = {
     width: PropTypes.number.isRequired,
-    puzzleSize: PropTypes.number.isRequired,
+    buttonSize: PropTypes.number.isRequired,
     backgroundColor: PropTypes.string,
-    puzzleColor: PropTypes.string,
+    buttonColor: PropTypes.string,
     text: PropTypes.string,
     onVerify: PropTypes.func.isRequired,
     textColor: PropTypes.string,
@@ -39,7 +39,7 @@ const propTypes = {
 //default props value
 const defaultProps = {
     backgroundColor: '#F50057',
-    puzzleColor: '#D50000',
+    buttonColor: '#D50000',
     textColor: '#fff',
     borderColor: '#D50000',
     icon: require('./img/right.png')
@@ -86,10 +86,10 @@ export default class RNSwipeVerify extends Component {
                     // limit sliding out of box
                     listener: (event, gestureState) => {
 
-                        const { puzzleSize, width } = this.props
+                        const { buttonSize, width } = this.props
 
                         const { offsetXAnim } = this.state
-                        const maxMoving = width - puzzleSize
+                        const maxMoving = width - buttonSize
 
                         var toX = gestureState.dx;
 
@@ -150,10 +150,10 @@ export default class RNSwipeVerify extends Component {
 
     render() {
 
-        const { puzzleColor, puzzleSize, width, text, textColor, borderColor, backgroundColor, icon } = this.props
+        const { buttonColor, buttonSize, width, text, textColor, borderColor, backgroundColor, icon } = this.props
         const { verify, moving, percent } = this.state
-        const radius = puzzleSize / 2;
-        const iconSize = puzzleSize / 1.9;
+        const radius = buttonSize / 2;
+        const iconSize = buttonSize / 1.9;
 
         const position = {
             transform: [
@@ -168,7 +168,7 @@ export default class RNSwipeVerify extends Component {
                     var { x, y, width, height } = event.nativeEvent.layout;
                     this.setState({ dimensions: { width, height }, position: { x, y } })
 
-                }} style={{ backgroundColor: backgroundColor, height: puzzleSize, borderRadius: radius, position: 'relative', width, justifyContent: 'center' }}>
+                }} style={{ backgroundColor: backgroundColor, height: buttonSize, borderRadius: radius, position: 'relative', width, justifyContent: 'center' }}>
                     <Text style={{
                         position: 'absolute',
                         alignSelf: 'center',
@@ -179,7 +179,7 @@ export default class RNSwipeVerify extends Component {
                     }}>{text}</Text>
                     {!verify && (<Animated.View {...this._panResponder.panHandlers} style={[
                         position,
-                        { width: puzzleSize, height: puzzleSize, borderRadius: radius, backgroundColor: puzzleColor, justifyContent: 'center', alignItems: 'center' }
+                        { width: buttonSize, height: buttonSize, borderRadius: radius, backgroundColor: buttonColor, justifyContent: 'center', alignItems: 'center' }
                     ]}>
                         <Image source={icon} style={{ width: iconSize, height: iconSize }} />
 

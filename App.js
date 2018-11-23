@@ -44,7 +44,7 @@ export default class App extends Component {
 
         <RNSwipeVerify ref={ref => this.swipeVerify = ref}
           width={width - 50}
-          puzzleSize={60}
+          buttonSize={60}
           text="Deslice para verificar"
           onVerify={verify => {
             this.setState({ verify })
