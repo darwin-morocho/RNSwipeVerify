@@ -10,9 +10,7 @@ A small componenent to Swipe Verify
 ## Preview
 
 
-|  |  |
-| --- | --- |
-| <img width="259" alt="lo" src="https://user-images.githubusercontent.com/15864336/48920913-d823c600-ee69-11e8-99d0-ff0fa2bb4c82.png"> | <img width="259" alt="lo" src="https://user-images.githubusercontent.com/15864336/48921011-93e4f580-ee6a-11e8-91ff-3ffc38243719.png"> |
+<img width="259" alt="lo" src="https://user-images.githubusercontent.com/15864336/48955616-ba636900-ef1c-11e8-915b-5fa53939ffb3.png"> 
 
 
 ## Important
@@ -34,43 +32,74 @@ import {
 
 const { width } = Dimensions.get('window')
 
-import RNSwipeVerify from 'react-native-swipe-verify'
+import RNSwipeVerify from './RNSwipeVerify'
 
 export default class App extends Component {
 
   constructor(props) {
     super(props)
 
-    this.state = {
-      verify: false
-    }
+    this.state = {}
 
   }
 
   render() {
 
-    const { verify } = this.state
+
     return (
       <View style={{ flex: 1, alignItems: 'center', justifyContent: 'center' }}>
 
 
-        <RNSwipeVerify 
-          ref={ref => this.swipeVerify = ref} 
-          buttonSize={60} 
-          width={width - 40} 
-          onVerify={verify => this.setState({ verify })}
-          text={verify ? "VERIFIED" : "Slide to verify"} 
-          buttonColor="#01579B" 
-          borderColor={verify ? '#1DE9B6' : '#01579B'}
-          textColor={verify ? '#1DE9B6' : '#01579B'} 
-          backgroundColor="#fff"
-          icon={require('../img/swipe.png')}      
-        />
+        <RNSwipeVerify ref={ref => this.swipeVerify = ref}
+          width={width - 50}
+          buttonSize={60}
+          text="Deslice para verificar"
+          onVerified={() => {
+            alert("Verified 1")
+          }} />
 
 
-        {this.state.verify && (<TouchableOpacity onPress={() => this.swipeVerify.reset(false)} style={{ marginTop: 30 }}>
+
+        <View style={{ marginTop: 20 }}>
+          <RNSwipeVerify ref={ref => this.swipeVerify2 = ref}
+            width={width - 50}
+            buttonSize={60}
+            borderColor="#2962FF"
+            buttonColor="#2962FF"
+            backgroundColor="#fff"
+            textColor="#2962FF"
+            text="Deslice para verificar"
+            onVerified={() => {
+              alert("Verified 2")
+            }} />
+        </View>
+
+
+
+        <View style={{ marginTop: 20 }}>
+          <RNSwipeVerify ref={ref => this.swipeVerify3 = ref}
+            width={width - 50}
+            buttonSize={60}
+            borderColor="#fff"
+            buttonColor="#37474F"
+            backgroundColor="#f5f5f5"
+            textColor="#37474F"
+            text="Deslice para verificar"
+            onVerified={() => {
+              alert("Verified 3")
+            }} />
+        </View>
+
+
+        <TouchableOpacity onPress={() => {
+          this.swipeVerify.reset()
+          this.swipeVerify2.reset()
+          this.swipeVerify3.reset()
+        }} style={{ marginTop: 30 }}>
           <Text style={{ padding: 10, color: '#0091EA', fontSize: 25 }}>RESET</Text>
-        </TouchableOpacity>)}
+        </TouchableOpacity>
+
+
 
       </View>
     );
@@ -97,7 +126,7 @@ export default class App extends Component {
 
 | name | arguments | notes |
 | --- | --- | --- |
-| **onVerify** (required) | bool | listener to check if the swipe is verified (user has completed swipe) |
+| **onVerified** (required) | bool | listener to check if the swipe is verified (user has completed swipe) |
 
 
 
@@ -105,4 +134,4 @@ export default class App extends Component {
 
 | name | arguments | notes |
 | --- | --- | --- |
-| **reset(bool)** (required) | bool (animate) | reset the swipe-verify to default values |
+| **reset()** | none | reset the swipe-verify to default values |

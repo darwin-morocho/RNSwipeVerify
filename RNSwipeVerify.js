@@ -30,10 +30,11 @@ const propTypes = {
     backgroundColor: PropTypes.string,
     buttonColor: PropTypes.string,
     text: PropTypes.string,
-    onVerify: PropTypes.func.isRequired,
+    onVerified: PropTypes.func.isRequired,
     textColor: PropTypes.string,
     borderColor: PropTypes.string,
-    icon: PropTypes.any
+    icon: PropTypes.any,
+    okIcon: PropTypes.any
 };
 
 //default props value
@@ -42,7 +43,8 @@ const defaultProps = {
     buttonColor: '#D50000',
     textColor: '#fff',
     borderColor: '#D50000',
-    icon: require('./img/right.png')
+    icon: require('./img/right.png'),
+    okIcon: require('./img/tick.png'),
 };
 
 
@@ -52,7 +54,7 @@ export default class RNSwipeVerify extends Component {
         super(props)
 
         this.state = {
-            offsetXAnim: new Animated.Value(0),
+            drag: new Animated.ValueXY(),
             moving: false,
             verify: false,
             percent: 0,
@@ -66,29 +68,23 @@ export default class RNSwipeVerify extends Component {
 
 
         this._panResponder = PanResponder.create({
-            // Ask to be the responder:
-            onStartShouldSetPanResponder: (evt, gestureState) => true,
-            onStartShouldSetPanResponderCapture: (evt, gestureState) => true,
-            onMoveShouldSetPanResponder: (evt, gestureState) => true,
-            onMoveShouldSetPanResponderCapture: (evt, gestureState) => true,
-
+            onStartShouldSetPanResponder: (e, gesture) => true,
             onPanResponderGrant: (evt, gestureState) => {
-                // The gesture has started. Show visual feedback so the user knows
-                // what is happening!
 
-                // gestureState.d{x,y} will be set to zero now
-                this.setState({ moving: true })
+                const positionXY = this.state.drag.__getValue();
+                this.state.drag.setOffset(positionXY);
+                this.state.drag.setValue({ x: 0, y: 0 });
             },
             onPanResponderMove: Animated.event([
                 null,
-                { dx: this.state.offsetXAnim }
+                { dx: this.state.drag.x }
             ], {
                     // limit sliding out of box
                     listener: (event, gestureState) => {
 
                         const { buttonSize, width } = this.props
 
-                        const { offsetXAnim } = this.state
+                        const { drag } = this.state
                         const maxMoving = width - buttonSize
 
                         var toX = gestureState.dx;
@@ -104,45 +100,37 @@ export default class RNSwipeVerify extends Component {
                             this.setState({ text })
                         }
 
-                        offsetXAnim.setValue(toX)
+                        drag.setValue({ x: toX, y: 0 })
 
                     }
                 }),
-            onPanResponderTerminationRequest: (evt, gestureState) => true,
             onPanResponderRelease: (evt, gestureState) => {
-                // The user has released all touches while this view is the
-                // responder. This typically means a gesture has succeeded
-
-                //console.log("onPanResponderRelease", gestureState);
                 if (this.state.percent >= 100) {
                     this.setState({ moving: false, verify: true });
-                    this.props.onVerify(true);//communicate that the verification was successful
-                } else {
-                    this.reset(true);
+                    this.props.onVerified();//communicate that the verification was successful
+                } else if (!this.state.verify) {
+                    this.reset();
                 }
-
             },
             onPanResponderTerminate: (evt, gestureState) => {
                 // Another component has become the responder, so this gesture
                 // should be cancelled
-                // console.log("onPanResponderTerminate", gestureState);
+                console.log("onPanResponderTerminate", gestureState);
             },
 
         });
     }
 
 
-   
-    reset(animate) {
-        //reset to default values
-        Animated.timing(this.state.offsetXAnim, {
-            toValue: 0,
-            duration: animate ? 300 : 0,
-            easing: Easing.linear,
-            useNativeDriver: true
+
+    reset() {
+        this.state.drag.setOffset({ x: 0, y: 0 });
+        Animated.timing(this.state.drag, {
+            toValue: { x: 0, y: 0 },
+            duration: 300,
         }).start();
+
         this.setState({ moving: false, verify: false, percent: 0 });
-        this.props.onVerify(false);//communicate that the verification was unsuccessful
     }
 
 
@@ -150,18 +138,12 @@ export default class RNSwipeVerify extends Component {
 
     render() {
 
-        const { buttonColor, buttonSize, width, text, textColor, borderColor, backgroundColor, icon } = this.props
+        const { buttonColor, buttonSize, width, text, textColor, borderColor, backgroundColor, icon, okIcon } = this.props
         const { verify, moving, percent } = this.state
         const radius = buttonSize / 2;
         const iconSize = buttonSize / 1.9;
 
-        const position = {
-            transform: [
-                {
-                    translateX: this.state.offsetXAnim
-                }
-            ]
-        };
+        const position = { transform: this.state.drag.getTranslateTransform() };
         return (
             <View style={{ borderColor: borderColor, borderWidth: 2, borderRadius: radius + 4, padding: 2, width: width + 8 }}>
                 <View onLayout={(event) => {
@@ -175,15 +157,15 @@ export default class RNSwipeVerify extends Component {
 
                         color: textColor,
                         fontWeight: 'bold',
-                        fontSize: 17, paddingLeft: !verify ? radius : 0
+                        fontSize: 17, paddingLeft: !verify ? radius / 2 : 0
                     }}>{text}</Text>
-                    {!verify && (<Animated.View {...this._panResponder.panHandlers} style={[
+                    <Animated.View {...this._panResponder.panHandlers} style={[
                         position,
                         { width: buttonSize, height: buttonSize, borderRadius: radius, backgroundColor: buttonColor, justifyContent: 'center', alignItems: 'center' }
                     ]}>
-                        <Image source={icon} style={{ width: iconSize, height: iconSize }} />
+                        <Image source={verify ? okIcon : icon} style={{ width: iconSize, height: iconSize }} />
 
-                    </Animated.View>)}
+                    </Animated.View>
                 </View>
             </View>
         );

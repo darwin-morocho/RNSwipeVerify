@@ -1,11 +1,3 @@
-/**
- * Sample React Native App
- * https://github.com/facebook/react-native
- *
- * @format
- * @flow
- */
-
 import React, { Component } from 'react';
 
 import {
@@ -24,20 +16,13 @@ export default class App extends Component {
   constructor(props) {
     super(props)
 
-    this.state = {
-      verify: false
-    }
-
+    this.state = {}
 
   }
 
-
-
-
-
   render() {
 
-    const { verify } = this.state
+
     return (
       <View style={{ flex: 1, alignItems: 'center', justifyContent: 'center' }}>
 
@@ -46,13 +31,52 @@ export default class App extends Component {
           width={width - 50}
           buttonSize={60}
           text="Deslice para verificar"
-          onVerify={verify => {
-            this.setState({ verify })
+          onVerified={() => {
+            alert("Verified 1")
           }} />
 
-        {this.state.verify && (<TouchableOpacity onPress={() => this.swipeVerify.reset(false)} style={{ marginTop: 30 }}>
+
+
+        <View style={{ marginTop: 20 }}>
+          <RNSwipeVerify ref={ref => this.swipeVerify2 = ref}
+            width={width - 50}
+            buttonSize={60}
+            borderColor="#2962FF"
+            buttonColor="#2962FF"
+            backgroundColor="#fff"
+            textColor="#2962FF"
+            text="Deslice para verificar"
+            onVerified={() => {
+              alert("Verified 2")
+            }} />
+        </View>
+
+
+
+        <View style={{ marginTop: 20 }}>
+          <RNSwipeVerify ref={ref => this.swipeVerify3 = ref}
+            width={width - 50}
+            buttonSize={60}
+            borderColor="#fff"
+            buttonColor="#37474F"
+            backgroundColor="#f5f5f5"
+            textColor="#37474F"
+            text="Deslice para verificar"
+            onVerified={() => {
+              alert("Verified 3")
+            }} />
+        </View>
+
+
+        <TouchableOpacity onPress={() => {
+          this.swipeVerify.reset()
+          this.swipeVerify2.reset()
+          this.swipeVerify3.reset()
+        }} style={{ marginTop: 30 }}>
           <Text style={{ padding: 10, color: '#0091EA', fontSize: 25 }}>RESET</Text>
-        </TouchableOpacity>)}
+        </TouchableOpacity>
+
+
 
       </View>
     );
