@@ -116,6 +116,7 @@ export default class App extends Component {
 | **backgroundColor** (optional) | string | #F50057 | background color |
 | **buttonColor** (optional) | string | #D50000 | button background color |
 | **icon** (optional) | image | arrow icon | image to button (only .png or .jpg).<br> You can use  **icon={require('../img/swipe.png')}**    or  **icon={{ uri: 'http://images.com/swipe-icon.jpg'}}** |
+| **okIcon** (optional) | image | arrow icon | image to show when the verification was successful (only .png or .jpg).<br> You can use  **okIcon={require('../img/swipe.png')}**    or  **okIcon={{ uri: 'http://images.com/swipe-icon.jpg'}}** |
 | **text** (optional) | string | #D50000 | text to show |
 | **textColor** (optional) | string | #FFFFFF | text color |
 | **borderColor** (optional) | string | #D50000 | border color |
