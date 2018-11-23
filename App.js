@@ -33,7 +33,7 @@ export default class App extends Component {
       <View style={{ flex: 1, alignItems: 'center', justifyContent: 'flex-end', backgroundColor: '#fff', paddingBottom: 40 }}>
 
 
-
+        {/** Lottie example */}
         <View style={{ marginTop: 20 }}>
           <RNSwipeVerify ref={ref => this.swipeVerify2 = ref}
             width={width - 50}
@@ -64,6 +64,11 @@ export default class App extends Component {
 
           </RNSwipeVerify>
         </View>
+        {/** end Lottie example */}
+
+
+
+
 
 
         <View style={{ marginTop: 20 }}>
