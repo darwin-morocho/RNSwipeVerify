@@ -60,6 +60,10 @@ export default class RNSwipeVerify extends Component {
             dimensions: { width: 0, height: 0 },
         }
 
+    }
+
+    componentWillMount() {
+
 
         this._panResponder = PanResponder.create({
             // Ask to be the responder:
@@ -75,53 +79,35 @@ export default class RNSwipeVerify extends Component {
                 // gestureState.d{x,y} will be set to zero now
                 this.setState({ moving: true })
             },
-            onPanResponderMove: (evt, gestureState) => {
-                // The most recent move distance is gestureState.move{X,Y}
+            onPanResponderMove: Animated.event([
+                null,
+                { dx: this.state.offsetXAnim }
+            ], {
+                    // limit sliding out of box
+                    listener: (event, gestureState) => {
 
-                // The accumulated gesture distance since becoming responder is
-                // gestureState.d{x,y}
+                        const { puzzleSize, width } = this.props
 
-                const { puzzleSize, width } = this.props
+                        const { offsetXAnim } = this.state
+                        const maxMoving = width - puzzleSize
 
-                const { offsetXAnim, moving } = this.state
-                const maxMoving = width - puzzleSize
+                        var toX = gestureState.dx;
 
+                        if (toX < 0) toX = 0;
+                        if (toX > maxMoving) toX = maxMoving;
+                        const percent = ((toX * 100) / maxMoving).toFixed();
+                        this.setState({ percent })
 
+                        //
+                        if (!this.props.text) {
+                            const text = `${percent} %`;
+                            this.setState({ text })
+                        }
 
+                        offsetXAnim.setValue(toX)
 
-
-                if (!moving) return
-
-                var toX = gestureState.dx;
-
-
-
-                // console.log("mi dx", this.lastDx - toX);
-                // console.log("maxMoving", maxMoving);
-                // console.log("this.lastDx", this.lastDx);
-
-
-                if (toX < 0) toX = 0;
-                if (toX > maxMoving) toX = maxMoving;
-                const percent = ((toX * 100) / maxMoving).toFixed();
-                this.setState({ percent })
-                
-                //
-                if (!this.props.text) {
-                    const text = `${percent} %`;
-                    this.setState({ text })
-                }
-
-                Animated.timing(offsetXAnim, {
-                    toValue: toX,
-                    duration: 10,
-                    easing: Easing.linear,
-                    useNativeDriver:true
-                }).start();
-
-
-
-            },
+                    }
+                }),
             onPanResponderTerminationRequest: (evt, gestureState) => true,
             onPanResponderRelease: (evt, gestureState) => {
                 // The user has released all touches while this view is the
@@ -143,17 +129,15 @@ export default class RNSwipeVerify extends Component {
             },
 
         });
-
-
     }
 
 
-
+   
     reset(animate) {
         //reset to default values
         Animated.timing(this.state.offsetXAnim, {
             toValue: 0,
-            duration: animate ? 500 : 0,
+            duration: animate ? 300 : 0,
             easing: Easing.linear,
             useNativeDriver: true
         }).start();
@@ -192,7 +176,7 @@ export default class RNSwipeVerify extends Component {
                         color: textColor,
                         fontWeight: 'bold',
                         fontSize: 17, paddingLeft: !verify ? radius : 0
-                    }}>{percent}</Text>
+                    }}>{text}</Text>
                     {!verify && (<Animated.View {...this._panResponder.panHandlers} style={[
                         position,
                         { width: puzzleSize, height: puzzleSize, borderRadius: radius, backgroundColor: puzzleColor, justifyContent: 'center', alignItems: 'center' }
