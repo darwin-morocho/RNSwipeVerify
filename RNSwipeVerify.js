@@ -33,18 +33,20 @@ const propTypes = {
     onVerified: PropTypes.func.isRequired,
     textColor: PropTypes.string,
     borderColor: PropTypes.string,
-    icon: PropTypes.any,
-    okIcon: PropTypes.any
+    icon: PropTypes.node,
+    okIcon: PropTypes.any,
+    okButton: PropTypes.object,
+    borderRadius: PropTypes.number
 };
 
 //default props value
 const defaultProps = {
-    backgroundColor: '#F50057',
+    backgroundColor: '#fff',
     buttonColor: '#D50000',
-    textColor: '#fff',
-    borderColor: '#D50000',
-    icon: require('./img/right.png'),
-    okIcon: require('./img/tick.png'),
+    textColor: '#000',
+    borderColor: 'rgba(0,0,0,0)',
+    okButton: { visible: true, duration: 300 },
+    borderRadius: 0
 };
 
 
@@ -55,6 +57,7 @@ export default class RNSwipeVerify extends Component {
 
         this.state = {
             drag: new Animated.ValueXY(),
+            buttonOpacity: new Animated.Value(1),
             moving: false,
             verify: false,
             percent: 0,
@@ -65,7 +68,6 @@ export default class RNSwipeVerify extends Component {
     }
 
     componentWillMount() {
-
 
         this._panResponder = PanResponder.create({
             onStartShouldSetPanResponder: (e, gesture) => true,
@@ -108,6 +110,12 @@ export default class RNSwipeVerify extends Component {
                 if (this.state.percent >= 100) {
                     this.setState({ moving: false, verify: true });
                     this.props.onVerified();//communicate that the verification was successful
+
+                    const { visible, duration } = this.props.okButton
+                    if (!visible) {
+                        this.toggleShowAnimation(false, duration)
+                    }
+
                 } else if (!this.state.verify) {
                     this.reset();
                 }
@@ -115,7 +123,7 @@ export default class RNSwipeVerify extends Component {
             onPanResponderTerminate: (evt, gestureState) => {
                 // Another component has become the responder, so this gesture
                 // should be cancelled
-                console.log("onPanResponderTerminate", gestureState);
+                // console.log("onPanResponderTerminate", gestureState);
             },
 
         });
@@ -129,48 +137,79 @@ export default class RNSwipeVerify extends Component {
             toValue: { x: 0, y: 0 },
             duration: 300,
         }).start();
-
+        this.toggleShowAnimation(true, this.props.okButton.duration)
         this.setState({ moving: false, verify: false, percent: 0 });
     }
+
+
+    toggleShowAnimation(visible, duration) {
+        Animated.timing(                  // Animate over time
+            this.state.buttonOpacity,            // The animated value to drive
+            {
+                toValue: visible ? 1 : 0,                   // Animate to opacity: 1 (opaque)
+                duration: duration,              // Make it take a while
+            }
+        ).start();
+    }
+
 
 
 
 
     render() {
 
-        const { buttonColor, buttonSize, width, text, textColor, borderColor, backgroundColor, icon, okIcon } = this.props
-        const { verify, moving, percent } = this.state
-        const radius = buttonSize / 2;
+        const { buttonColor, buttonSize, width, text, textColor, borderColor, backgroundColor, icon, showOkButton,borderRadius } = this.props
+        const { verify, moving, percent, buttonOpacity } = this.state
+
+
+        
         const iconSize = buttonSize / 1.9;
 
         const position = { transform: this.state.drag.getTranslateTransform() };
+
+
+
+
         return (
-            <View style={{ borderColor: borderColor, borderWidth: 2, borderRadius: radius + 4, padding: 2, width: width + 8 }}>
+            <View style={{ borderColor: borderColor, borderWidth: 2, borderRadius: borderRadius + 4, padding: 2, width: width + 8 }}>
                 <View onLayout={(event) => {
                     var { x, y, width, height } = event.nativeEvent.layout;
                     this.setState({ dimensions: { width, height }, position: { x, y } })
 
-                }} style={{ backgroundColor: backgroundColor, height: buttonSize, borderRadius: radius, position: 'relative', width, justifyContent: 'center' }}>
-                    <Text style={{
-                        position: 'absolute',
-                        alignSelf: 'center',
+                }} style={{ backgroundColor: backgroundColor, height: buttonSize, borderRadius: borderRadius, position: 'relative', width, justifyContent: 'center' }}>
 
-                        color: textColor,
-                        fontWeight: 'bold',
-                        fontSize: 17, paddingLeft: !verify ? radius / 2 : 0
-                    }}>{text}</Text>
+                    {this.props.children && (
+                        <View style={{
+                            position: 'absolute',
+                            alignSelf: 'center',
+                        }}>{this.props.children}</View>
+                    )}
+
+
+
+
+
+
+
                     <Animated.View {...this._panResponder.panHandlers} style={[
                         position,
-                        { width: buttonSize, height: buttonSize, borderRadius: radius, backgroundColor: buttonColor, justifyContent: 'center', alignItems: 'center' }
+                        { width: buttonSize, height: buttonSize, borderRadius: borderRadius, backgroundColor: buttonColor, justifyContent: 'center', alignItems: 'center', opacity: buttonOpacity }
                     ]}>
-                        <Image source={verify ? okIcon : icon} style={{ width: iconSize, height: iconSize }} />
+                        {icon}
 
                     </Animated.View>
+
+
+
+
                 </View>
             </View>
         );
     }
 }
+
+
+
 
 RNSwipeVerify.propTypes = propTypes;
 RNSwipeVerify.defaultProps = defaultProps;

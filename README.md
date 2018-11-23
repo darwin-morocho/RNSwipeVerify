@@ -115,11 +115,10 @@ export default class App extends Component {
 | **buttonSize** (required) | number | required | the button (Icon) size of swipe-verify |
 | **backgroundColor** (optional) | string | #F50057 | background color |
 | **buttonColor** (optional) | string | #D50000 | button background color |
-| **icon** (optional) | image | arrow icon | image to button (only .png or .jpg).<br> You can use  **icon={require('../img/swipe.png')}**    or  **icon={{ uri: 'http://images.com/swipe-icon.jpg'}}** |
-| **okIcon** (optional) | image | arrow icon | image to show when the verification was successful (only .png or .jpg).<br> You can use  **okIcon={require('../img/swipe.png')}**    or  **okIcon={{ uri: 'http://images.com/swipe-icon.jpg'}}** |
-| **text** (optional) | string | #D50000 | text to show |
-| **textColor** (optional) | string | #FFFFFF | text color |
+| **icon** (optional) | component |  | see the example to more information |
 | **borderColor** (optional) | string | #D50000 | border color |
+| **borderRadius** (optional) | number | 0 | border radius to the button and container |
+| **okButton** (optional) | object | { visible: true, duration: 300 } | if  visible is true the icon button will be hidden, duration (number) is the animation duration in miliseconds |
 
 
 
