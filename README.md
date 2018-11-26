@@ -9,9 +9,9 @@ A small componenent to Swipe Verify
 
 ## Preview
 
-
-<img width="259" alt="lo" src="https://user-images.githubusercontent.com/15864336/48955616-ba636900-ef1c-11e8-915b-5fa53939ffb3.png">
-<img width="259" alt="lo" src="https://user-images.githubusercontent.com/15864336/49022236-5a5e0400-f162-11e8-9c71-50f21cd999e1.png">
+| | |
+| --- | --- |
+| <img width="259" alt="lo" src="https://user-images.githubusercontent.com/15864336/48955616-ba636900-ef1c-11e8-915b-5fa53939ffb3.png"> | <img width="259" alt="lo" src="https://user-images.githubusercontent.com/15864336/49022236-5a5e0400-f162-11e8-9c71-50f21cd999e1.png"> |
 
 
 
