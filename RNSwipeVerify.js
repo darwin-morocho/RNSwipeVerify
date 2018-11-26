@@ -76,6 +76,8 @@ export default class RNSwipeVerify extends Component {
                 const positionXY = this.state.drag.__getValue();
                 this.state.drag.setOffset(positionXY);
                 this.state.drag.setValue({ x: 0, y: 0 });
+
+
             },
             onPanResponderMove: Animated.event([
                 null,
@@ -83,11 +85,17 @@ export default class RNSwipeVerify extends Component {
             ], {
                     // limit sliding out of box
                     listener: (event, gestureState) => {
+                        
 
                         const { buttonSize, width } = this.props
 
-                        const { drag } = this.state
+                        const { drag, verify } = this.state
                         const maxMoving = width - buttonSize
+
+
+                       
+
+                       
 
                         var toX = gestureState.dx;
 
@@ -96,12 +104,11 @@ export default class RNSwipeVerify extends Component {
                         const percent = ((toX * 100) / maxMoving).toFixed();
                         this.setState({ percent })
 
-                        //
-                        if (!this.props.text) {
-                            const text = `${percent} %`;
-                            this.setState({ text })
+                    
+                        if (verify) {
+                            drag.setValue({ x: 0, y: 0 })
+                            return
                         }
-
                         drag.setValue({ x: toX, y: 0 })
 
                     }
@@ -158,11 +165,11 @@ export default class RNSwipeVerify extends Component {
 
     render() {
 
-        const { buttonColor, buttonSize, width, text, textColor, borderColor, backgroundColor, icon, showOkButton,borderRadius } = this.props
+        const { buttonColor, buttonSize, width, text, textColor, borderColor, backgroundColor, icon, showOkButton, borderRadius } = this.props
         const { verify, moving, percent, buttonOpacity } = this.state
 
 
-        
+
         const iconSize = buttonSize / 1.9;
 
         const position = { transform: this.state.drag.getTranslateTransform() };
