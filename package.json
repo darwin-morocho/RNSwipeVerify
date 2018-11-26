@@ -1,6 +1,6 @@
 {
   "name": "react-native-swipe-verify",
-  "version": "0.1.1",
+  "version": "0.1.2",
   "license": "MIT",
   "author": {
     "name": "Darwin Morocho",
@@ -25,7 +25,6 @@
   },
   "devDependencies": {
     "babel-jest": "23.6.0",
-    "lottie-react-native": "^2.5.10",
     "metro-react-native-babel-preset": "0.49.2",
     "react": "16.6.1",
     "react-native": "0.57.5",
