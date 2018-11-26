@@ -9,7 +9,7 @@
 import React, { Component } from 'react';
 import PropTypes from 'prop-types'
 import {
-     View, PanResponder,
+    View, PanResponder,
     Animated, UIManager,
 } from 'react-native';
 
@@ -160,12 +160,12 @@ export default class RNSwipeVerify extends Component {
 
     render() {
 
-        const { buttonColor, buttonSize, width, text, textColor, borderColor, backgroundColor, icon, showOkButton, borderRadius } = this.props
-        const { verify, moving, percent, buttonOpacity } = this.state
+        const { buttonColor, buttonSize, width, borderColor, backgroundColor, icon, borderRadius } = this.props
+        const { buttonOpacity } = this.state
 
 
 
-        const iconSize = buttonSize / 1.9;
+
 
         const position = { transform: this.state.drag.getTranslateTransform() };
 
