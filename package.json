@@ -16,12 +16,9 @@
   ],
   "homepage": "https://github.com/MorochoRochaDarwin/RNSwipeVerify",
   "private": false,
-  "main": "RNSwipeVerify.js",
+  "main": "src/index.js",
   "scripts": {
-    "start": "node node_modules/react-native/local-cli/cli.js start",
-    "ra": "react-native run-android",
-    "ri": "react-native run-ios",
-    "ba": "node node_modules/react-native/local-cli/cli.js bundle --platform android --dev false --entry-file index.js --bundle-output android/app/src/main/assets/index.android.bundle --assets-dest android/app/src/main/res"
+    
   },
   "dependencies": {
     "prop-types": "^15.6.2"

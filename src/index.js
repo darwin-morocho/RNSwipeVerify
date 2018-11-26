@@ -9,9 +9,8 @@
 import React, { Component } from 'react';
 import PropTypes from 'prop-types'
 import {
-    Text, View, PanResponder,
+     View, PanResponder,
     Animated, UIManager,
-    Easing, Image
 } from 'react-native';
 
 
@@ -19,10 +18,6 @@ import {
 if (UIManager.setLayoutAnimationEnabledExperimental) {
     UIManager.setLayoutAnimationEnabledExperimental(true);
 }
-
-
-
-
 
 const propTypes = {
     width: PropTypes.number.isRequired,
@@ -85,7 +80,7 @@ export default class RNSwipeVerify extends Component {
             ], {
                     // limit sliding out of box
                     listener: (event, gestureState) => {
-                        
+
 
                         const { buttonSize, width } = this.props
 
@@ -93,9 +88,9 @@ export default class RNSwipeVerify extends Component {
                         const maxMoving = width - buttonSize
 
 
-                       
 
-                       
+
+
 
                         var toX = gestureState.dx;
 
@@ -104,7 +99,7 @@ export default class RNSwipeVerify extends Component {
                         const percent = ((toX * 100) / maxMoving).toFixed();
                         this.setState({ percent })
 
-                    
+
                         if (verify) {
                             drag.setValue({ x: 0, y: 0 })
                             return
@@ -214,9 +209,6 @@ export default class RNSwipeVerify extends Component {
         );
     }
 }
-
-
-
 
 RNSwipeVerify.propTypes = propTypes;
 RNSwipeVerify.defaultProps = defaultProps;
