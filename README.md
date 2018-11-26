@@ -145,7 +145,7 @@ export default class App extends Component {
 | **icon** (optional) | component |  | see the example to more information |
 | **borderColor** (optional) | string | #D50000 | border color |
 | **borderRadius** (optional) | number | 0 | border radius to the button and container |
-| **okButton** (optional) | object | { visible: true, duration: 300 } | if  visible is true the icon button will be hidden, duration (number) is the animation duration in miliseconds |
+| **okButton** (optional) | object | { visible: true, duration: 300 } | if  visible is false the icon button will be hidden, duration (number) is the animation duration in miliseconds |
 
 
 
