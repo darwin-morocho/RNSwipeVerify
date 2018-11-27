@@ -109,6 +109,7 @@ export default class RNSwipeVerify extends Component {
                     }
                 }),
             onPanResponderRelease: (evt, gestureState) => {
+                if (this.state.verify) return
                 if (this.state.percent >= 100) {
                     this.setState({ moving: false, verify: true });
                     this.props.onVerified();//communicate that the verification was successful
