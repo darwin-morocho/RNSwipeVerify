@@ -1,6 +1,6 @@
 {
   "name": "react-native-swipe-verify",
-  "version": "0.1.3",
+  "version": "0.1.4",
   "license": "MIT",
   "author": {
     "name": "Darwin Morocho",
@@ -17,9 +17,7 @@
   "homepage": "https://github.com/MorochoRochaDarwin/RNSwipeVerify",
   "private": false,
   "main": "src/index.js",
-  "scripts": {
-    
-  },
+  "scripts": {},
   "dependencies": {
     "prop-types": "^15.6.2"
   },

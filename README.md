@@ -6,6 +6,7 @@ A small componenent to Swipe Verify
 ## Installation
 
   `npm install --save react-native-swipe-verify`
+   `yarn add react-native-swipe-verify`
 
 ## Preview
 
@@ -34,7 +35,7 @@ import {
 
 const { width } = Dimensions.get('window')
 
-import RNSwipeVerify from './RNSwipeVerify'
+import RNSwipeVerify from 'react-native-swipe-verify'
 
 import LottieView from 'lottie-react-native';
 
