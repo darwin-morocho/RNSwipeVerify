@@ -5,7 +5,7 @@ A small componenent to Swipe Verify
 
 ## Installation
 
-  `npm install --save react-native-swipe-verify`
+  `npm install --save react-native-swipe-verify` or
    `yarn add react-native-swipe-verify`
 
 ## Preview
