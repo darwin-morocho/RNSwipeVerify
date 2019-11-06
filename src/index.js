@@ -13,6 +13,7 @@ if (UIManager.setLayoutAnimationEnabledExperimental) {
 
 const propTypes = {
   buttonSize: PropTypes.number.isRequired,
+  sliderHeight: PropTypes.number,
   backgroundColor: PropTypes.string,
   buttonColor: PropTypes.string,
   text: PropTypes.string,
@@ -129,6 +130,7 @@ export default class RNSwipeVerify extends Component {
     const {
       buttonColor,
       buttonSize,
+      sliderHeight,
       borderColor,
       backgroundColor,
       icon,
@@ -146,7 +148,7 @@ export default class RNSwipeVerify extends Component {
           borderRadius: borderRadius + 4,
           padding: 2,
           flex: 1,
-          height: buttonSize+4
+          height: sliderHeight ? sliderHeight : buttonSize + 4
         }}
       >
         <View
@@ -159,7 +161,7 @@ export default class RNSwipeVerify extends Component {
           }}
           style={{
             backgroundColor,
-            height: buttonSize,
+            height: sliderHeight ? sliderHeight : buttonSize,
             borderRadius,
             justifyContent: "center"
           }}
@@ -181,7 +183,7 @@ export default class RNSwipeVerify extends Component {
               position,
               {
                 width: buttonSize,
-                height: buttonSize,
+                height: sliderHeight ? sliderHeight : buttonSize,
                 borderRadius: borderRadius,
                 backgroundColor: buttonColor,
                 justifyContent: "center",
